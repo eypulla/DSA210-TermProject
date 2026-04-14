@@ -1,6 +1,7 @@
 # 🏐 Explaining National Volleyball Success Through Economic and Development Indicators
 
-**DSA 210 — Introduction to Data Science - Term Project **
+**DSA 210 — Introduction to Data Science - Term Project**
+
 **Spring 2025–2026 | Sabancı University**
 
 I am Nehir Eylül Balcı a student from Sabancı University, and this is my term project for DSA210 Introduction to Data Science course.
@@ -47,7 +48,7 @@ DSA210-Volleyball-Project/
 ### Volleyball Performance Data
 | Source | Description | URL |
 |--------|-------------|-----|
-| FIVB / Volleyball World | Senior Men's & Women's World Rankings (Jan–Jun 2025) | https://en.volleyballworld.com/volleyball/world-ranking/ |
+| FIVB / Volleyball World | Senior Men's & Women's World Rankings (Jan–Jun 2025) |https://en.volleyballworld.com/volleyball/world-ranking/women?  https://en.volleyballworld.com/volleyball/world-ranking/men?  |
 | Wikipedia | Historical ranking snapshots | https://en.wikipedia.org/wiki/FIVB_Senior_World_Rankings |
 
 ### Socioeconomic Data
@@ -121,6 +122,45 @@ Each row represents one country. Key columns:
 **The most surprising finding** is the *population paradox*: countries like Poland, Italy, and Slovenia (populations of 5–38 million) outperform much more populous nations. This suggests that volleyball success depends on the quality of sports infrastructure and cultural investment, not the raw size of the talent pool.
 
 ---
+## 🏐 Conclusions 
+
+After conducting extensive Exploratory Data Analysis (EDA) and rigorous statistical testing, I have uncovered several fascinating insights into what truly drives national success in professional volleyball. Here is a summary of my journey and the "detective work" I performed on the data:
+
+### 1. It’s About Development, Not Just Wealth (HDI vs. GDP)
+My initial hypothesis was that richer countries would naturally dominate the sport. However, the results were more nuanced. While **GDP per Capita** does show a moderate positive correlation with success, the **Human Development Index (HDI)** is a much stronger predictor. 
+
+> **My Take:** Success in volleyball isn't just about having money; it’s about how a society invests in its people. Countries with better education, health, and living standards (higher HDI) tend to produce more elite athletes, especially in women’s volleyball, which proved to be even more sensitive to these developmental indicators.
+
+### 2. The "Population Paradox"
+One of the most counter-intuitive findings in my project was the lack of correlation between a country's population size and its volleyball ranking.
+
+* **My Take:** I found that having a massive "talent pool" (like India or China) doesn't guarantee success. Instead, "punching above their weight" is common for smaller nations like **Poland, Slovenia, or Italy**. This confirms that the quality of sports infrastructure and a deep-rooted volleyball culture are far more important than raw population numbers.
+
+### 3. European Dominance is Mathematically Real
+I noticed a heavy concentration of top-tier teams in Europe, so I ran a **Mann-Whitney U Test** to see if this was just a coincidence.
+
+* **The Result:** The test confirmed that the European Confederation (CEV) is statistically superior to others ($p < 0.05$). This likely stems from Europe's dense professional league systems and the high intensity of continental competitions.
+
+### 4. Identifying the Over-Performers (Residual Analysis)
+By analyzing the "Residuals" (the gap between predicted success and actual performance), I identified the true volleyball powerhouses.
+
+* **My Take:** **Brazil and Turkey** are the standout over-performers. Their success far exceeds what their economic indicators would predict. This points to something money can’t easily buy: a massive national passion and a specialized system dedicated to volleyball excellence.
+
+---
+
+###  Findings Summary Table
+
+| Research Question | My Finding | Statistical Evidence |
+| :--- | :--- | :--- |
+| **Does wealth drive success?** | Yes, but moderately. | Spearman $r \approx 0.40$ |
+| **Does HDI matter?** | Yes, it's the strongest predictor! | Spearman $r \approx 0.50$ |
+| **Does population matter?** | No, I found a "Population Paradox". | Spearman $r \approx 0.10$ (not sig.) |
+| **Is Europe dominant?** | Yes, statistically proven. | Mann-Whitney U ($p < 0.05$) |
+
+---
+
+### Final Thoughts
+This project allowed me to see sports through the lens of data science. It taught me that while economic and demographic factors provide the foundation, the "soul" of a sport—culture, coaching, and history—is what ultimately creates champions.
 
 ## ⚙️ How to Run
 
