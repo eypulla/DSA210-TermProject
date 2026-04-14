@@ -129,7 +129,7 @@ After conducting extensive Exploratory Data Analysis (EDA) and rigorous statisti
 ### 1. It’s About Development, Not Just Wealth (HDI vs. GDP)
 My initial hypothesis was that richer countries would naturally dominate the sport. However, the results were more nuanced. While **GDP per Capita** does show a moderate positive correlation with success, the **Human Development Index (HDI)** is a much stronger predictor. 
 
-> **My Take:** Success in volleyball isn't just about having money; it’s about how a society invests in its people. Countries with better education, health, and living standards (higher HDI) tend to produce more elite athletes, especially in women’s volleyball, which proved to be even more sensitive to these developmental indicators.
+* **My Take:** Success in volleyball isn't just about having money; it’s about how a society invests in its people. Countries with better education, health, and living standards (higher HDI) tend to produce more elite athletes, especially in women’s volleyball, which proved to be even more sensitive to these developmental indicators.
 
 ### 2. The "Population Paradox"
 One of the most counter-intuitive findings in my project was the lack of correlation between a country's population size and its volleyball ranking.
