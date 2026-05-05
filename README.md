@@ -55,7 +55,8 @@ DSA210-TermProject/
 ### Volleyball Performance
 | Source | Description | Link |
 |--------|-------------|------|
-| FIVB / Volleyball World | Senior Men's & Women's World Rankings (2025) | [volleyballworld.com](https://en.volleyballworld.com/volleyball/world-ranking/) |
+| FIVB / Volleyball World | Senior Men's World Rankings (2025) | https://en.volleyballworld.com/volleyball/world-ranking/men |
+| FIVB / Volleyball World | Senior Women's World Rankings (2025) | https://en.volleyballworld.com/volleyball/world-ranking/women |
 | Wikipedia | Exact WR point values | [FIVB Senior World Rankings](https://en.wikipedia.org/wiki/FIVB_Senior_World_Rankings) |
 
 > FIVB's website renders tables via JavaScript and doesn't support direct download. Point values were collected from Wikipedia which mirrors the official data.
@@ -89,7 +90,7 @@ DSA210-TermProject/
 
 ---
 
-## 🔬 Methodology
+## Layout
 
 The analysis is split across 6 notebooks, each building on the previous.
 
@@ -120,13 +121,13 @@ The analysis is split across 6 notebooks, each building on the previous.
 
 ### Conclusions 
 
-**1. Development Over Pure Wealth.** The most significant finding is that HDI consistently outperforms GDP per capita as a predictor of success. This suggests that volleyball excellence is more closely linked to broad societal well-being (health, education, and equality) than to raw economic output alone. In the multiple regression models, the impact of HDI was notably higher for women’s teams, indicating that gender-specific sports performance is highly sensitive to overall national development.
+**1. Development Over Pure Wealth** The most significant finding is that HDI consistently outperforms GDP per capita as a predictor of success. This suggests that volleyball excellence is more closely linked to broad societal well-being (health, education, and equality) than to raw economic output alone. In the multiple regression models, the impact of HDI was notably higher for women’s teams, indicating that gender-specific sports performance is highly sensitive to overall national development.
 
-**2. The Population Paradox.** We found no significant statistical evidence that a larger population leads to better volleyball results (Spearman r ≈ 0.10, p > 0.05). Nations like Slovenia (approx. 2.1M people) consistently outrank countries with populations 50 to 100 times larger. This confirms our hypothesis that the "quality" of the athletic pipeline and specialized infrastructure is far more important than the "quantity" of potential athletes.
+**2. The Population Paradox** We found no significant statistical evidence that a larger population leads to better volleyball results (Spearman r ≈ 0.10, p > 0.05). Nations like Slovenia (approx. 2.1M people) consistently outrank countries with populations 50 to 100 times larger. This confirms our hypothesis that the "quality" of the athletic pipeline and specialized infrastructure is far more important than the "quantity" of potential athletes.
 
 **3. The "Volleyball Culture" Factor.** Our residual analysis across all ML and regression models highlighted Brazil and Turkey as the most significant "positive outliers." These nations produce world-class results that far exceed what their economic and development indicators predict. This leads to the conclusion that qualitative factors—such as institutional federation support, historical tradition, and high national interest—can overcome economic limitations.
 
-**Predictive Feasibility.** While linear and kNN models showed comparable performance, the M3 model (Log GDP + HDI) provided the most reliable predictions. However, the moderate R² values suggest that while socioeconomic data provides a strong foundation, roughly 40-50% of volleyball success is determined by variables outside traditional economic datasets, such as tactical innovation and coaching quality.
+**4. Predictive Feasibility** While linear and kNN models showed comparable performance, the M3 model (Log GDP + HDI) provided the most reliable predictions. However, the moderate R² values suggest that while socioeconomic data provides a strong foundation, roughly 40-50% of volleyball success is determined by variables outside traditional economic datasets, such as tactical innovation and coaching quality.
 
 ---
 
@@ -155,9 +156,16 @@ Run all cells: `Runtime → Run all` or `Ctrl+F9`
 
 ---
 
-## 🤖 AI Usage Disclosure
+##  AI Usage 
 
-AI assistance (Claude, Anthropic) was used for code debugging, visualisation suggestions, and documentation. All analysis decisions, interpretations, and conclusions were reviewed and verified by me.
+AI assistance (Claude, Anthropic) was used in certain parts of this project alongside course materials. The analysis methods — EDA, hypothesis testing, regression, and ML techniques — were primarily based on course recitations and lecture notes.
+AI was used to support:
+
+- Code debugging and fixing errors during the data loading and preprocessing stage
+- Structuring and formatting the notebooks and README
+- Visualisation refinements such as colour choices and layout adjustments
+
+Research questions, data collection, all analytical decisions, result interpretations, and conclusions are the student's own work. All AI-assisted outputs were reviewed and verified before inclusion.
 
 ---
 
