@@ -35,7 +35,8 @@ DSA210-TermProject/
 │   ├── 03_correlation_hypothesis.ipynb
 │   ├── 04_regression.ipynb
 │   ├── 05_ml_linear.ipynb
-│   └── 06_ml_advanced.ipynb
+│   ├── 06_ml_advanced.ipynb
+│   └── 07_confederation_classification.ipynb
 │
 ├── data/
 │   └── volleyball_economic_dataset.csv
@@ -92,16 +93,17 @@ DSA210-TermProject/
 
 ## Layout
 
-The analysis is split across 6 notebooks, each building on the previous.
+The analysis is split across 7 notebooks, each building on the previous.
 
 | # | Notebook | Contents |
 |---|----------|----------|
-| 01 | Data Loading | Load 4 sources, standardise country names, merge, apply log transforms, export CSV |
-| 02 | EDA | Distributions, top 15 bar charts, GDP/HDI scatter plots, gender gap, population paradox, confederation boxplots |
+| 01 | Data Loading | Load 4 sources, standardise names, merge, log transform, export CSV |
+| 02 | EDA | Distributions, top 15 bar charts, GDP/HDI scatter, gender gap, population paradox, confederation boxplots |
 | 03 | Correlation & Hypothesis Testing | Spearman heatmap, 8 hypothesis tests (H1–H8), Mann-Whitney U test for European dominance |
 | 04 | Regression | Simple regression, multiple regression (men vs women), residual analysis |
-| 05 | ML — Linear Models | StandardScaler, 80/20 train/test split, 4-model comparison (M1–M4), 5-fold cross-validation, feature importance, learning curve |
-| 06 | ML — Advanced | kNN regression (k tuning), Decision Tree (depth tuning + tree visualisation), model leaderboard, K-Means clustering (elbow + silhouette), hierarchical clustering dendrogram |
+| 05 | ML — Linear Models | StandardScaler, 80/20 train/test split, 4-model comparison (M1–M4), 5-fold cross-validation, feature importance, learning curve. R² scores are low — see notebook 07. |
+| 06 | ML — Advanced | kNN, Decision Tree, model leaderboard, K-Means clustering (elbow + silhouette), hierarchical clustering dendrogram. Regression R² low — unsupervised results more informative. |
+| 07 | ML — Confederation Classification | Prediction task reformulated as classification. Logistic Regression, kNN, Decision Tree predict confederation membership from socioeconomic features — accuracy well above random baseline. |
 
 ---
 
@@ -115,7 +117,7 @@ The analysis is split across 6 notebooks, each building on the previous.
 | Men vs women? | Effect is stronger for women | Higher HDI coefficient in women's model |
 | Europe dominant? | Yes, statistically significant | Mann-Whitney U p < 0.05 |
 | Over-performers? | Brazil, Turkey | Largest positive residuals across all models |
-| Best ML model? | M3: Log GDP + HDI | Highest CV R² |
+| Best supervised model? | Confederation classification (notebook 07) | Accuracy above random baseline |
 | kNN vs Linear? | Comparable — relationship is approximately linear | Similar test R² across all models |
 | Country clusters? | Distinct archetypes found | K-Means + hierarchical clustering agree |
 
@@ -127,7 +129,7 @@ The analysis is split across 6 notebooks, each building on the previous.
 
 **3. The "Volleyball Culture" Factor.** Our residual analysis across all ML and regression models highlighted Brazil and Turkey as the most significant "positive outliers." These nations produce world-class results that far exceed what their economic and development indicators predict. This leads to the conclusion that qualitative factors—such as institutional federation support, historical tradition, and high national interest—can overcome economic limitations.
 
-**4. Predictive Feasibility** While linear and kNN models showed comparable performance, the M3 model (Log GDP + HDI) provided the most reliable predictions. However, the moderate R² values suggest that while socioeconomic data provides a strong foundation, roughly 40-50% of volleyball success is determined by variables outside traditional economic datasets, such as tactical innovation and coaching quality.
+**4. Predictive Feasibility** Regression models (predicting exact WR points) showed low R² scores, confirming that socioeconomic indicators alone cannot reliably predict precise volleyball rankings in a dataset of this size. The prediction task was therefore reformulated as classification: predicting which confederation a country belongs to based on its economic profile. This proved a much better fit — all classifiers achieved accuracy well above the 25% random baseline, with Logistic Regression performing best. This suggests that while GDP and HDI cannot pinpoint exact rankings, they do reflect the broader geographic-economic groupings that shape volleyball success.
 
 ---
 
@@ -138,10 +140,10 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Open notebooks in Google Colab in order (01 → 06).
+Open notebooks in Google Colab in order (01 → 07).
 
 - **Notebook 01** requires the 4 raw data files and exports `volleyball_economic_dataset.csv`
-- **Notebooks 02–06** only need `volleyball_economic_dataset.csv`
+- **Notebooks 02–07** only need `volleyball_economic_dataset.csv`
 
 Run all cells: `Runtime → Run all` or `Ctrl+F9`
 
