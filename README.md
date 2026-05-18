@@ -33,10 +33,10 @@ Turkey is a particularly interesting case. I grew up watching Vakıfbank and Fen
 DSA210-TermProject/
 │
 ├── notebooks/
-│   ├── 1-data_loading.ipynb
-│   ├── 2-eda_analysis.ipynb
-│   ├── 3-corelation_hypothesis.ipynb
-│   ├── 4-regression.ipynb
+│   ├── 1_data_loading.ipynb
+│   ├── 2_eda_analysis.ipynb
+│   ├── 3_corelation_hypothesis.ipynb
+│   ├── 4_regression.ipynb
 │   ├── 5_ML_linear.ipynb
 │   ├── 6_ML__advanced.ipynb
 │   └── 7_confederation_classification.ipynb
