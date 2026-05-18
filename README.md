@@ -5,6 +5,8 @@
 
 I am Nehir Eylül Balcı (33936), a student at Sabancı University. This is my DSA210 term project.
 
+> This README serves as the final report. A PDF version is also available: `DSA210 Final Report - Nehir Eylül Balcı -33936.pdf`
+
 ---
 
 ## 📌 Motivation
@@ -30,13 +32,21 @@ Volleyball is a sport I closely follow. While watching international competition
 DSA210-TermProject/
 │
 ├── notebooks/
-│   ├── 01_data_loading.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_correlation_hypothesis.ipynb
-│   ├── 04_regression.ipynb
-│   ├── 05_ml_linear.ipynb
-│   ├── 06_ml_advanced.ipynb
-│   └── 07_confederation_classification.ipynb
+│   ├── 1-data_loading.ipynb
+│   ├── 2-eda_analysis.ipynb
+│   ├── 3-corelation_hypothesis.ipynb
+│   ├── 4-regression.ipynb
+│   ├── 5_ML_linear.ipynb
+│   ├── 6_ML__advanced.ipynb
+│   └── 7_confederation_classification.ipynb
+│
+├── figures/
+│   ├── fig1_top15.png
+│   ├── fig2_scatter.png
+│   ├── fig3_heatmap.png
+│   ├── fig4_residuals.png
+│   ├── fig5_population_confed.png
+│   └── fig6_gender_gap.png
 │
 ├── data/
 │   └── volleyball_economic_dataset.csv
@@ -120,6 +130,27 @@ The analysis is split across 7 notebooks, each building on the previous.
 | Best supervised model? | Confederation classification (notebook 07) | Accuracy above random baseline |
 | kNN vs Linear? | Comparable — relationship is approximately linear | Similar test R² across all models |
 | Country clusters? | Distinct archetypes found | K-Means + hierarchical clustering agree |
+
+
+### Visualisations
+
+#### Top 15 Nations
+![Top 15 countries](figures/fig1_top15.png)
+
+#### HDI & GDP vs Volleyball Performance
+![Scatter plots](figures/fig2_scatter.png)
+
+#### Spearman Correlation Matrix
+![Correlation heatmap](figures/fig3_heatmap.png)
+
+#### Over- and Under-Performers (Residual Analysis)
+![Residual analysis](figures/fig4_residuals.png)
+
+#### Population Paradox & Continental Patterns
+![Population and confederation](figures/fig5_population_confed.png)
+
+#### Gender Gap
+![Gender gap](figures/fig6_gender_gap.png)
 
 ### Conclusions 
 
