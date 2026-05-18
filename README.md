@@ -2,16 +2,17 @@
 
 **DSA210 — Introduction to Data Science — Term Project**
 **Spring 2025–2026 | Sabancı University**
+**Student:** Nehir Eylül Balcı · 33936
 
-I am Nehir Eylül Balcı (33936), a student at Sabancı University. This is my DSA210 term project.
-
-> This README serves as the final report. A PDF version is also available: `DSA210 Final Report - Nehir Eylül Balcı -33936.pdf`
+> This README serves as the final report. A PDF version is also available in the repository: `DSA210 Final Report - Nehir Eylül Balcı -33936.pdf`
 
 ---
 
 ## 📌 Motivation
 
 Volleyball is a sport I closely follow. While watching international competitions, I noticed that certain countries consistently dominate — but not always the wealthiest ones. Brazil and Turkey produce world-class teams despite having lower GDP per capita than many European nations, while massive populous countries are often absent from the top rankings. This sparked my central question: **what actually explains national volleyball success?**
+
+Turkey is a particularly interesting case. I grew up watching Vakıfbank and Fenerbahçe dominate European club volleyball, and the national women's team consistently finishing in the top four at World Championships — ahead of countries with GDP per capita two or three times higher. That gap between economic indicators and volleyball results was what originally made me want to look at this properly.
 
 ---
 
@@ -51,13 +52,13 @@ DSA210-TermProject/
 ├── data/
 │   └── volleyball_economic_dataset.csv
 │
+├── DSA210 Final Report - Nehir Eylül Balcı -33936.pdf
 ├── Project Proposal .pdf
 ├── requirements.txt
 └── README.md
 ```
 
-> Raw data files (World Bank zips, HDI Excel, FIVB Excel) are not stored in the repository due to size.
-> Download links are in the Dataset section below.
+> Raw data files (World Bank zips, HDI Excel, FIVB Excel) are not stored in the repository due to size. Download links are in the Dataset section below.
 
 ---
 
@@ -66,8 +67,8 @@ DSA210-TermProject/
 ### Volleyball Performance
 | Source | Description | Link |
 |--------|-------------|------|
-| FIVB / Volleyball World | Senior Men's World Rankings (2025) | https://en.volleyballworld.com/volleyball/world-ranking/men |
-| FIVB / Volleyball World | Senior Women's World Rankings (2025) | https://en.volleyballworld.com/volleyball/world-ranking/women |
+| FIVB / Volleyball World | Senior Men's World Rankings (2025) | [volleyballworld.com/men](https://en.volleyballworld.com/volleyball/world-ranking/men) |
+| FIVB / Volleyball World | Senior Women's World Rankings (2025) | [volleyballworld.com/women](https://en.volleyballworld.com/volleyball/world-ranking/women) |
 | Wikipedia | Exact WR point values | [FIVB Senior World Rankings](https://en.wikipedia.org/wiki/FIVB_Senior_World_Rankings) |
 
 > FIVB's website renders tables via JavaScript and doesn't support direct download. Point values were collected from Wikipedia which mirrors the official data.
@@ -101,7 +102,7 @@ DSA210-TermProject/
 
 ---
 
-## Layout
+## 🔬 Data Analysis
 
 The analysis is split across 7 notebooks, each building on the previous.
 
@@ -109,58 +110,89 @@ The analysis is split across 7 notebooks, each building on the previous.
 |---|----------|----------|
 | 01 | Data Loading | Load 4 sources, standardise names, merge, log transform, export CSV |
 | 02 | EDA | Distributions, top 15 bar charts, GDP/HDI scatter, gender gap, population paradox, confederation boxplots |
-| 03 | Correlation & Hypothesis Testing | Spearman heatmap, 8 hypothesis tests (H1–H8), Mann-Whitney U test for European dominance |
+| 03 | Correlation & Hypothesis Testing | Spearman heatmap, 8 hypothesis tests (H1–H8), Mann-Whitney U |
 | 04 | Regression | Simple regression, multiple regression (men vs women), residual analysis |
-| 05 | ML — Linear Models | StandardScaler, 80/20 train/test split, 4-model comparison (M1–M4), 5-fold cross-validation, feature importance, learning curve. R² scores are low — see notebook 07. |
-| 06 | ML — Advanced | kNN, Decision Tree, model leaderboard, K-Means clustering (elbow + silhouette), hierarchical clustering dendrogram. Regression R² low — unsupervised results more informative. |
-| 07 | ML — Confederation Classification | Prediction task reformulated as classification. Logistic Regression, kNN, Decision Tree predict confederation membership from socioeconomic features — accuracy well above random baseline. |
+| 05 | ML — Linear Models | StandardScaler, 80/20 train/test split, 4-model comparison (M1–M4), 5-fold CV, feature importance, learning curve |
+| 06 | ML — Advanced | kNN, Decision Tree, K-Means clustering, hierarchical clustering dendrogram |
+| 07 | ML — Confederation Classification | Prediction task reformulated as classification — accuracy well above random baseline |
 
 ---
 
-## 📈 Key Findings
+## 📈 Findings
 
-| Question | Finding | Evidence |
-|---|---|---|
-| GDP → volleyball? | Moderate positive association | Spearman r ≈ 0.40, p < 0.05 |
-| HDI → volleyball? | **Strongest predictor** | Spearman r ≈ 0.50, p < 0.05 |
-| Population → volleyball? | **No association — population paradox** | Spearman r ≈ 0.10, p > 0.05 |
-| Men vs women? | Effect is stronger for women | Higher HDI coefficient in women's model |
-| Europe dominant? | Yes, statistically significant | Mann-Whitney U p < 0.05 |
-| Over-performers? | Brazil, Turkey | Largest positive residuals across all models |
-| Best supervised model? | Confederation classification (notebook 07) | Accuracy above random baseline |
-| kNN vs Linear? | Comparable — relationship is approximately linear | Similar test R² across all models |
-| Country clusters? | Distinct archetypes found | K-Means + hierarchical clustering agree |
+### Who Are the Top Performing Nations?
 
-
-### Visualisations
-
-#### Top 15 Nations
 ![Top 15 countries](figures/fig1_top15.png)
 
-#### HDI & GDP vs Volleyball Performance
+European nations dominate both men's and women's rankings. Brazil and Japan are the only non-European countries consistently in the global top 5–6 for both genders. The US ranks 3rd in men's but only 7th in women's, while Turkey sits 17th in men's but 4th in women's — a striking gender gap that is explored further below.
+
+---
+
+### Do GDP and HDI Predict Volleyball Success?
+
 ![Scatter plots](figures/fig2_scatter.png)
 
-#### Spearman Correlation Matrix
-![Correlation heatmap](figures/fig3_heatmap.png)
+Both log GDP and HDI show a positive association with volleyball performance. HDI appears to be the stronger predictor — the points cluster more tightly around its regression line, and the correlation is slightly higher. The relationship is positive but not perfect: some countries sit far above the line (Brazil, Turkey) while some wealthy nations fall well below it.
 
-#### Over- and Under-Performers (Residual Analysis)
+---
+
+### Correlation Analysis
+
+![Spearman heatmap](figures/fig3_heatmap.png)
+
+The Spearman correlation matrix confirms the visual impression from the scatter plots. HDI has the strongest correlation with volleyball points for both genders. Log population has near-zero correlation — consistent with the population paradox. Men's and women's points correlate strongly with each other (r ≈ 0.7), suggesting shared country-level factors drive success across both genders.
+
+**Hypothesis tests (H1–H8):** Using Spearman correlation for all eight predictor–outcome pairs. GDP, HDI, and population all show positive correlations with volleyball performance, though not all reach statistical significance at this sample size. Mann-Whitney U confirms that European (CEV) dominance is statistically significant (p < 0.05).
+
+---
+
+### Which Countries Punch Above Their Weight?
+
 ![Residual analysis](figures/fig4_residuals.png)
 
-#### Population Paradox & Continental Patterns
+After fitting a regression model (Log GDP → Women's WR points), the residuals reveal which countries perform far above or below their economic expectations. **Brazil and Turkey are the biggest over-performers** — their results far exceed what GDP alone would predict. Some wealthy Gulf states show the opposite: high GDP, low volleyball success. This is the clearest answer to the project's original question: wealth helps, but it is not the whole story.
+
+---
+
+### The Population Paradox & Continental Patterns
+
 ![Population and confederation](figures/fig5_population_confed.png)
 
-#### Gender Gap
+There is essentially no relationship between population size and volleyball success — the regression line is nearly flat. Slovenia (≈2.1M people) consistently outranks countries with populations 50–100 times larger. The confederation boxplot shows that CEV (Europe) has the highest median performance and the greatest spread, containing both the very best teams and many average ones.
+
+---
+
+### Gender Gap
+
 ![Gender gap](figures/fig6_gender_gap.png)
 
-### Conclusions 
+The gender gap varies substantially by country. Turkey and Brazil have strongly positive gaps — their women's programs considerably outperform their men's. France and Slovenia show the reverse. The HDI–gender gap relationship is weak and not statistically significant, which suggests the gap is driven more by country-specific volleyball culture than by broad development levels.
 
-**1. Development Over Pure Wealth** The most significant finding is that HDI consistently outperforms GDP per capita as a predictor of success. This suggests that volleyball excellence is more closely linked to broad societal well-being (health, education, and equality) than to raw economic output alone. In the multiple regression models, the impact of HDI was notably higher for women’s teams, indicating that gender-specific sports performance is highly sensitive to overall national development.
+---
 
-**2. The Population Paradox** We found no significant statistical evidence that a larger population leads to better volleyball results (Spearman r ≈ 0.10, p > 0.05). Nations like Slovenia (approx. 2.1M people) consistently outrank countries with populations 50 to 100 times larger. This confirms our hypothesis that the "quality" of the athletic pipeline and specialized infrastructure is far more important than the "quantity" of potential athletes.
+### Machine Learning Summary
 
-**3. The "Volleyball Culture" Factor.** Our residual analysis across all ML and regression models highlighted Brazil and Turkey as the most significant "positive outliers." These nations produce world-class results that far exceed what their economic and development indicators predict. This leads to the conclusion that qualitative factors—such as institutional federation support, historical tradition, and high national interest—can overcome economic limitations.
+Regression models predicting exact WR points showed low R² values — socioeconomic indicators cannot reliably predict precise rankings in a dataset of this size. The prediction task was reformulated as classification: **can we predict which confederation a country belongs to based on its economic profile?**
 
-**4. Predictive Feasibility** Regression models (predicting exact WR points) showed low R² scores, confirming that socioeconomic indicators alone cannot reliably predict precise volleyball rankings in a dataset of this size. The prediction task was therefore reformulated as classification: predicting which confederation a country belongs to based on its economic profile. This proved a much better fit — all classifiers achieved accuracy well above the 25% random baseline, with Logistic Regression performing best. This suggests that while GDP and HDI cannot pinpoint exact rankings, they do reflect the broader geographic-economic groupings that shape volleyball success.
+| Model | CV Accuracy | vs. 25% Random Baseline |
+|-------|------------|------------------------|
+| Logistic Regression | ≈ 56% | +31 pp above baseline |
+| kNN (k=3) | ≈ 49% | +24 pp above baseline |
+| Decision Tree (d=3) | ≈ 41% | +16 pp above baseline |
+
+All three classifiers beat the random baseline. CEV countries are the easiest to classify — they have a distinct combination of high GDP, high HDI, and strong volleyball performance. K-Means and hierarchical clustering both independently identified the same natural country groupings, including a separate cluster for Brazil and Turkey.
+
+---
+
+### Conclusions
+
+**1. Development Over Pure Wealth.** HDI consistently outperforms GDP per capita as a predictor of success. Volleyball excellence is more closely linked to broad societal well-being — health, education, and equality — than to raw economic output. The HDI effect is notably larger for women's teams, indicating that women's volleyball performance is particularly sensitive to overall national development.
+
+**2. The Population Paradox.** No significant statistical evidence that a larger population leads to better volleyball results. Nations like Slovenia (≈2.1M people) consistently outrank countries with populations 50 to 100 times larger. The quality of the athletic pipeline matters far more than the size of the talent pool.
+
+**3. The "Volleyball Culture" Factor.** The residual analysis highlighted Brazil and Turkey as the most significant positive outliers across all regression and ML models. These nations produce world-class results that far exceed what their economic indicators predict — pointing to federation investment, historical tradition, and the cultural weight of volleyball in both countries.
+
+**4. Predictive Feasibility.** Regression models showed low R² scores, confirming that socioeconomic indicators alone cannot reliably predict exact WR rankings. The reformulated classification task — predicting confederation membership — achieved accuracy well above the 25% random baseline, suggesting that economic profiles do carry real signal about the broader geographic-economic groupings that shape volleyball success.
 
 ---
 
@@ -180,21 +212,28 @@ Run all cells: `Runtime → Run all` or `Ctrl+F9`
 
 ---
 
-## ⚠️ Limitations
+## ⚠️ Limitations & Future Work
 
+**Limitations:**
 - Small sample (n ≈ 38) limits statistical power — learning curve confirms more data would help
 - Correlation ≠ causation — sports culture and federation quality are unmeasured confounders
-- Single time point (2024–2025 snapshot) — no longitudinal trends
+- Single time point (2024–2025 snapshot) — no longitudinal trends captured
 - FIVB youth category data not directly downloadable
+
+**Future Work:**
+- Collect time-series FIVB data (2010–2025) to study trends over time
+- Add sports-specific predictors: national sports budgets, professional league counts, Olympic medals
+- Apply Ridge/Lasso regression to address GDP–HDI multicollinearity
+- Extend analysis to youth categories once reliable data becomes accessible
 
 ---
 
-##  AI Usage 
+## 🤖 AI Usage
 
 AI assistance (Claude, Anthropic) was used in certain parts of this project alongside course materials. The analysis methods — EDA, hypothesis testing, regression, and ML techniques — were primarily based on course recitations and lecture notes.
-AI was used to support:
 
-- Code debugging and fixing errors during the data loading and preprocessing stage
+AI was used to support:
+- Code debugging and fixing errors during the data loading and preprocessing stage (zip parsing, HDI column detection)
 - Structuring and formatting the notebooks and README
 - Visualisation refinements such as colour choices and layout adjustments
 
