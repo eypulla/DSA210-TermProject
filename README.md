@@ -2,9 +2,9 @@
 
 **DSA210 — Introduction to Data Science — Term Project**
 **Spring 2025–2026 | Sabancı University**
-**Student:** Nehir Eylül Balcı · 33936
+**Student:** Nehir Eylül Balcı 
 
-> This README serves as the final report. A PDF version is also available in the repository: `DSA210 Final Report - Nehir Eylül Balcı -33936.pdf`
+> This README serves as the final report. A PDF version is also available in the repository: `DSA210 Final Report - Nehir Eylül Balcı.pdf`
 
 ---
 
@@ -244,4 +244,4 @@ Research questions, data collection, all analytical decisions, result interpreta
 
 ---
 
-**Nehir Eylül Balcı · 33936 · DSA210 Spring 2025–2026 · Sabancı University**
+**Nehir Eylül Balcı · DSA210 Spring 2025–2026 · Sabancı University**
