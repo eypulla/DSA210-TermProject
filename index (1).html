@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volleyball & Economics — DSA210</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1f3d;
+    --navy2: #1a2f52;
+    --cream: #f5f0e8;
+    --cream2: #ede7d9;
+    --gold: #c8a96e;
+    --gold2: #e8c98e;
+    --text: #1a1a2e;
+    --muted: #5a5a72;
+    --white: #ffffff;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --gap: clamp(1.5rem, 4vw, 3rem);
+    --max: 900px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(200,169,110,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 80% 20%, rgba(200,169,110,0.08) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid rgba(200,169,110,0.5);
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    line-height: 1.15;
+    max-width: 780px;
+    margin: 0 auto 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold2);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3));
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--navy2);
+    color: var(--white);
+    padding: 2rem 1.5rem;
+  }
+
+  .stats-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    padding: calc(var(--gap) * 2) 1.5rem;
+  }
+
+  .section-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-body {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+
+  .section-body p + p { margin-top: 1rem; }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--cream2);
+    margin: 0;
+  }
+
+  /* ── FINDING CARDS ── */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .finding-card {
+    background: var(--white);
+    border: 1px solid var(--cream2);
+    border-radius: 12px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .finding-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gold);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .finding-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--cream2);
+    line-height: 1;
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+  }
+
+  .finding-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    max-width: 85%;
+  }
+
+  .finding-text {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── FIGURE SECTIONS ── */
+  .figure-section {
+    padding: calc(var(--gap) * 1.5) 1.5rem;
+    border-top: 1px solid var(--cream2);
+  }
+
+  .figure-section:nth-child(even) {
+    background: var(--white);
+  }
+
+  .figure-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .figure-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .figure-badge {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .figure-meta h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
+  }
+
+  .figure-meta p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  .figure-img-wrap {
+    background: var(--white);
+    border: 1px solid var(--cream2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .figure-img-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .figure-caption {
+    padding: 0.75rem 1rem;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--cream2);
+    font-style: italic;
+  }
+
+  /* ── METHODS ── */
+  .methods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .method-card {
+    background: var(--white);
+    border: 1px solid var(--cream2);
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+
+  .method-num {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .method-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .method-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  footer strong {
+    color: rgba(255,255,255,0.8);
+    font-weight: 400;
+  }
+
+  @media (max-width: 600px) {
+    .findings-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-tag">DSA210 · Spring 2025–2026 · Sabancı University</div>
+    <h1>Explaining National Volleyball Success Through <em>Economic and Development</em> Indicators</h1>
+    <p class="hero-sub">Does GDP predict which countries dominate volleyball — or is something else at play?</p>
+    <p class="hero-meta">Nehir Eylül Balcı &nbsp;·&nbsp; Student ID: 33936 &nbsp;·&nbsp; <a href="https://github.com/eypulla/DSA210-TermProject" style="color:var(--gold);text-decoration:none;">github.com/eypulla/DSA210-TermProject</a></p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <span class="stat-num">38</span>
+      <div class="stat-label">countries analysed</div>
+    </div>
+    <div>
+      <span class="stat-num">4</span>
+      <div class="stat-label">data sources merged</div>
+    </div>
+    <div>
+      <span class="stat-num">7</span>
+      <div class="stat-label">analysis notebooks</div>
+    </div>
+    <div>
+      <span class="stat-num">56%</span>
+      <div class="stat-label">classification accuracy</div>
+    </div>
+    <div>
+      <span class="stat-num">≈0</span>
+      <div class="stat-label">population effect</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOTIVATION -->
+<section class="section" style="background: var(--white);">
+  <div class="section-inner">
+    <div class="section-label">Motivation</div>
+    <h2 class="section-title">Why volleyball, and why economics?</h2>
+    <div class="section-body">
+      <p>Volleyball is a sport I closely follow. While watching international competitions, I noticed that certain countries consistently dominate — but not always the wealthiest ones. Brazil and Turkey produce world-class teams despite having lower GDP per capita than many European nations, while massive populous countries are often absent from the top rankings. This sparked my central question: <strong>what actually explains national volleyball success?</strong></p>
+      <p>Turkey is a particularly interesting case. I grew up watching Vakıfbank and Fenerbahçe dominate European club volleyball, and the national women's team consistently finishing in the top four at World Championships — ahead of countries with GDP per capita two or three times higher. That gap between economic indicators and volleyball results was what originally made me want to look at this properly.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- METHODS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">Methods</div>
+    <h2 class="section-title">7 notebooks, one story</h2>
+    <p class="section-body">The analysis runs across 7 notebooks, each building on the previous. Data was merged from FIVB rankings (Wikipedia), World Bank GDP and population data, and the UNDP Human Development Index.</p>
+    <div class="methods-grid">
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <div class="method-name">Data Loading</div>
+        <div class="method-desc">Merge 4 sources, standardise country names, log transform, export CSV</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <div class="method-name">EDA</div>
+        <div class="method-desc">Distributions, top 15, scatter plots, gender gap, population paradox</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <div class="method-name">Hypothesis Testing</div>
+        <div class="method-desc">Spearman heatmap, H1–H8 tests, Mann-Whitney U</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">04</div>
+        <div class="method-name">Regression</div>
+        <div class="method-desc">Simple & multiple regression, residual analysis</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">05</div>
+        <div class="method-name">ML — Linear</div>
+        <div class="method-desc">StandardScaler, train/test split, 4-model CV comparison</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">06</div>
+        <div class="method-name">ML — Advanced</div>
+        <div class="method-desc">kNN, Decision Tree, K-Means, hierarchical clustering</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">07</div>
+        <div class="method-name">Classification</div>
+        <div class="method-desc">Confederation prediction from socioeconomic features</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FIGURE 1 -->
+<section class="figure-section" style="background: var(--white);">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">1</div>
+      <div class="figure-meta">
+        <h3>Who Are the Top Performing Nations?</h3>
+        <p>European nations dominate both men's and women's rankings. Brazil and Japan are the only non-European countries consistently in the global top 5–6. The US ranks 3rd in men's but only 7th in women's, while Turkey sits 17th in men's but 4th in women's — a striking gender gap explored further below.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig1_top15.png" alt="Top 15 countries by men's and women's WR points">
+      <div class="figure-caption">Top 15 national teams — Senior Men's and Women's WR points (2025)</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 2 -->
+<section class="figure-section">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">2</div>
+      <div class="figure-meta">
+        <h3>Do GDP and HDI Predict Volleyball Success?</h3>
+        <p>Both log GDP and HDI show a positive association with volleyball performance. HDI appears to be the stronger predictor — the points cluster more tightly around its regression line. Some countries sit far above the line (Brazil, Turkey) while some wealthy nations fall well below it.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig2_scatter.png" alt="HDI and GDP vs volleyball performance scatter plots">
+      <div class="figure-caption">Log GDP and HDI vs women's WR points. Regression lines shown.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 3 -->
+<section class="figure-section" style="background: var(--white);">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">3</div>
+      <div class="figure-meta">
+        <h3>Correlation Analysis</h3>
+        <p>The Spearman correlation matrix confirms the visual impression. HDI has the strongest correlation with volleyball points. Log population has near-zero correlation — the population paradox. Men's and women's points correlate strongly with each other (r ≈ 0.7), suggesting shared country-level factors drive success across both genders.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig3_heatmap.png" alt="Spearman correlation heatmap">
+      <div class="figure-caption">Spearman correlation matrix — all key variables.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 4 -->
+<section class="figure-section">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">4</div>
+      <div class="figure-meta">
+        <h3>Which Countries Punch Above Their Weight?</h3>
+        <p>After fitting a regression model (Log GDP → Women's WR points), the residuals reveal which countries perform far above or below their economic expectations. Brazil and Turkey are the biggest over-performers — wealth helps, but it is not the whole story.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig4_residuals.png" alt="Residual analysis — over and under performers">
+      <div class="figure-caption">Over- and under-performers relative to GDP expectation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 5 -->
+<section class="figure-section" style="background: var(--white);">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">5</div>
+      <div class="figure-meta">
+        <h3>The Population Paradox & Continental Patterns</h3>
+        <p>There is essentially no relationship between population size and volleyball success — the regression line is nearly flat. Slovenia (≈2.1M people) consistently outranks countries with populations 50–100 times larger. CEV (Europe) has the highest median performance and the greatest spread.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig5_population_confed.png" alt="Population paradox and confederation patterns">
+      <div class="figure-caption">Left: population vs avg WR points. Right: performance by confederation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIGURE 6 -->
+<section class="figure-section">
+  <div class="figure-inner">
+    <div class="figure-header">
+      <div class="figure-badge">6</div>
+      <div class="figure-meta">
+        <h3>Gender Gap</h3>
+        <p>Turkey and Brazil have strongly positive gaps — their women's programs considerably outperform their men's. France and Slovenia show the reverse. The HDI–gender gap relationship is weak, suggesting the gap is driven more by country-specific volleyball culture than development levels.</p>
+      </div>
+    </div>
+    <div class="figure-img-wrap">
+      <img src="figures/fig6_gender_gap.png" alt="Gender gap by country">
+      <div class="figure-caption">Gender gap (Women's − Men's WR points) by country.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FINDINGS -->
+<section class="section" style="background: var(--navy); color: var(--white);">
+  <div class="section-inner">
+    <div class="section-label" style="color: var(--gold);">Conclusions</div>
+    <h2 class="section-title" style="color: var(--white);">Four things the data tells us</h2>
+    <div class="findings-grid">
+      <div class="finding-card" style="background: var(--navy2); border-color: rgba(255,255,255,0.08);">
+        <div class="finding-num" style="color: rgba(255,255,255,0.06);">1</div>
+        <div class="finding-title" style="color: var(--white);">Development Over Pure Wealth</div>
+        <div class="finding-text" style="color: rgba(255,255,255,0.55);">HDI consistently outperforms GDP as a predictor. Volleyball excellence is linked to broad societal well-being — health, education, and equality — more than raw economic output. The HDI effect is notably larger for women's teams.</div>
+      </div>
+      <div class="finding-card" style="background: var(--navy2); border-color: rgba(255,255,255,0.08);">
+        <div class="finding-num" style="color: rgba(255,255,255,0.06);">2</div>
+        <div class="finding-title" style="color: var(--white);">The Population Paradox</div>
+        <div class="finding-text" style="color: rgba(255,255,255,0.55);">No significant evidence that larger population leads to better results. Slovenia (≈2.1M people) consistently outranks countries 50–100× larger. The quality of the athletic pipeline matters far more than the talent pool size.</div>
+      </div>
+      <div class="finding-card" style="background: var(--navy2); border-color: rgba(255,255,255,0.08);">
+        <div class="finding-num" style="color: rgba(255,255,255,0.06);">3</div>
+        <div class="finding-title" style="color: var(--white);">The "Volleyball Culture" Factor</div>
+        <div class="finding-text" style="color: rgba(255,255,255,0.55);">Brazil and Turkey are the most significant positive outliers across all models. Their success far exceeds what economic indicators predict — pointing to federation investment, historical tradition, and the cultural weight of volleyball.</div>
+      </div>
+      <div class="finding-card" style="background: var(--navy2); border-color: rgba(255,255,255,0.08);">
+        <div class="finding-num" style="color: rgba(255,255,255,0.06);">4</div>
+        <div class="finding-title" style="color: var(--white);">Predicting Groups, Not Exact Numbers</div>
+        <div class="finding-text" style="color: rgba(255,255,255,0.55);">Regression R² is low, but confederation classification achieves 56% accuracy vs a 25% baseline. Economic profiles carry real signal about volleyball success patterns — just not enough to pin down exact rankings.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<!-- RANKINGS -->
+<section class="section" style="background: var(--white);">
+  <div class="section-inner">
+    <div class="section-label">Data</div>
+    <h2 class="section-title">Country Rankings & Indicators</h2>
+    <p class="section-body" style="margin-bottom: 1.5rem;">All 38 countries in the dataset, sorted by average senior WR points. Filter by confederation or search by country name.</p>
+
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.2rem; align-items:center;">
+      <input type="text" id="search" placeholder="Search country..." style="flex:1; min-width:160px; max-width:260px; padding:0.5rem 0.75rem; border:1px solid var(--cream2); border-radius:8px; font-family:var(--sans); font-size:14px; background:var(--cream); color:var(--text); outline:none;">
+      <select id="confFilter" style="padding:0.5rem 0.75rem; border:1px solid var(--cream2); border-radius:8px; font-family:var(--sans); font-size:14px; background:var(--cream); color:var(--text); outline:none; cursor:pointer;">
+        <option value="">All confederations</option>
+        <option value="CEV">CEV (Europe)</option>
+        <option value="AVC">AVC (Asia)</option>
+        <option value="NORCECA">NORCECA (N. America)</option>
+        <option value="CSV">CSV (S. America)</option>
+        <option value="CAVB">CAVB (Africa)</option>
+      </select>
+      <div style="display:flex; gap:0.5rem;">
+        <button onclick="sortBy('avg')" id="btn-avg" class="sort-btn active-btn">Avg points</button>
+        <button onclick="sortBy('pts_men')" id="btn-pts_men" class="sort-btn">Men</button>
+        <button onclick="sortBy('pts_women')" id="btn-pts_women" class="sort-btn">Women</button>
+        <button onclick="sortBy('gdp')" id="btn-gdp" class="sort-btn">GDP</button>
+        <button onclick="sortBy('hdi')" id="btn-hdi" class="sort-btn">HDI</button>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto; border:1px solid var(--cream2); border-radius:12px;">
+      <table id="rankTable" style="width:100%; border-collapse:collapse; font-size:13.5px;">
+        <thead>
+          <tr style="background:var(--navy); color:var(--white); text-align:left;">
+            <th style="padding:10px 12px; font-weight:500; width:44px;">#</th>
+            <th style="padding:10px 12px; font-weight:500;">Country</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:center;">Conf.</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:right;">Men</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:right;">Women</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:right;">Avg</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:right;">GDP/cap</th>
+            <th style="padding:10px 12px; font-weight:500; text-align:right;">HDI</th>
+          </tr>
+        </thead>
+        <tbody id="rankBody"></tbody>
+      </table>
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin-top:0.75rem;">Sources: FIVB 2025 · World Bank 2023 · UNDP 2023</p>
+  </div>
+</section>
+
+<style>
+.sort-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--cream2);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 12px;
+  background: var(--cream);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.sort-btn:hover { background: var(--cream2); color: var(--text); }
+.active-btn { background: var(--navy) !important; color: var(--white) !important; border-color: var(--navy) !important; }
+#rankBody tr:nth-child(even) { background: var(--cream); }
+#rankBody tr:hover { background: #ede0c8; }
+#rankBody td { padding: 9px 12px; border-bottom: 1px solid var(--cream2); }
+.conf-badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+</style>
+
+<script>
+const DATA = [{"rank":1,"country":"Italy","confederation":"CEV","pts_men":346.2,"pts_women":456.9,"avg":401.6,"gdp":40385,"hdi":0.915},{"rank":2,"country":"Poland","confederation":"CEV","pts_men":401.3,"pts_women":369.0,"avg":385.2,"gdp":25103,"hdi":0.906},{"rank":3,"country":"Brazil","confederation":"CSV","pts_men":305.9,"pts_women":417.9,"avg":361.9,"gdp":10310,"hdi":0.786},{"rank":4,"country":"United States","confederation":"NORCECA","pts_men":365.9,"pts_women":338.1,"avg":352.0,"gdp":84534,"hdi":0.938},{"rank":5,"country":"Japan","confederation":"AVC","pts_men":338.1,"pts_women":347.1,"avg":342.6,"gdp":32487,"hdi":0.925},{"rank":6,"country":"France","confederation":"CEV","pts_men":378.1,"pts_women":182.7,"avg":280.4,"gdp":46103,"hdi":0.92},{"rank":7,"country":"Turkiye","confederation":"CEV","pts_men":175.3,"pts_women":368.5,"avg":271.9,"gdp":15892,"hdi":0.853},{"rank":8,"country":"Germany","confederation":"CEV","pts_men":274.4,"pts_women":234.1,"avg":254.2,"gdp":56103,"hdi":0.959},{"rank":9,"country":"Canada","confederation":"NORCECA","pts_men":254.5,"pts_women":245.4,"avg":249.9,"gdp":54340,"hdi":0.939},{"rank":10,"country":"Slovenia","confederation":"CEV","pts_men":352.5,"pts_women":142.7,"avg":247.6,"gdp":34301,"hdi":0.931},{"rank":11,"country":"Serbia","confederation":"CEV","pts_men":259.3,"pts_women":234.2,"avg":246.7,"gdp":13679,"hdi":0.833},{"rank":12,"country":"China","confederation":"AVC","pts_men":144.0,"pts_women":346.8,"avg":245.4,"gdp":13303,"hdi":0.797},{"rank":13,"country":"Netherlands","confederation":"CEV","pts_men":204.8,"pts_women":262.6,"avg":233.7,"gdp":67520,"hdi":0.955},{"rank":14,"country":"Argentina","confederation":"CSV","pts_men":266.9,"pts_women":181.0,"avg":223.9,"gdp":13969,"hdi":0.865},{"rank":15,"country":"Cuba","confederation":"NORCECA","pts_men":249.3,"pts_women":145.2,"avg":197.3,"gdp":9605,"hdi":0.762},{"rank":16,"country":"Ukraine","confederation":"CEV","pts_men":196.0,"pts_women":189.1,"avg":192.5,"gdp":5389,"hdi":0.779},{"rank":17,"country":"Dominican Republic","confederation":"NORCECA","pts_men":125.4,"pts_women":254.0,"avg":189.7,"gdp":10875,"hdi":0.776},{"rank":18,"country":"Czechia","confederation":"CEV","pts_men":168.9,"pts_women":208.8,"avg":188.9,"gdp":31823,"hdi":0.915},{"rank":19,"country":"Belgium","confederation":"CEV","pts_men":183.2,"pts_women":191.0,"avg":187.1,"gdp":56614,"hdi":0.951},{"rank":20,"country":"Iran, Islamic Rep.","confederation":"AVC","pts_men":185.1,"pts_women":null,"avg":185.1,"gdp":5190,"hdi":0.799},{"rank":21,"country":"Thailand","confederation":"—","pts_men":null,"pts_women":173.1,"avg":173.1,"gdp":7346,"hdi":0.798},{"rank":22,"country":"Bulgaria","confederation":"CEV","pts_men":161.1,"pts_women":169.8,"avg":165.4,"gdp":17596,"hdi":0.845},{"rank":23,"country":"Puerto Rico","confederation":"NORCECA","pts_men":135.2,"pts_women":182.6,"avg":158.9,"gdp":null,"hdi":null},{"rank":24,"country":"Egypt, Arab Rep.","confederation":"CAVB","pts_men":156.9,"pts_women":null,"avg":156.9,"gdp":3338,"hdi":0.754},{"rank":25,"country":"Sweden","confederation":"—","pts_men":null,"pts_women":153.6,"avg":153.6,"gdp":57117,"hdi":0.959},{"rank":26,"country":"Colombia","confederation":"—","pts_men":null,"pts_women":152.4,"avg":152.4,"gdp":7919,"hdi":0.788},{"rank":27,"country":"Kenya","confederation":"—","pts_men":null,"pts_women":152.2,"avg":152.2,"gdp":2132,"hdi":0.628},{"rank":28,"country":"Qatar","confederation":"AVC","pts_men":151.5,"pts_women":null,"avg":151.5,"gdp":76688,"hdi":0.886},{"rank":29,"country":"Portugal","confederation":"CEV","pts_men":147.2,"pts_women":null,"avg":147.2,"gdp":29292,"hdi":0.89},{"rank":30,"country":"Finland","confederation":"CEV","pts_men":146.7,"pts_women":null,"avg":146.7,"gdp":53149,"hdi":0.948},{"rank":31,"country":"Viet Nam","confederation":"—","pts_men":null,"pts_women":141.2,"avg":141.2,"gdp":4717,"hdi":0.766},{"rank":32,"country":"Romania","confederation":"CEV","pts_men":143.1,"pts_women":136.3,"avg":139.7,"gdp":20080,"hdi":0.845},{"rank":33,"country":"Chile","confederation":"CSV","pts_men":139.1,"pts_women":null,"avg":139.1,"gdp":16709,"hdi":0.878},{"rank":34,"country":"Korea, Rep.","confederation":"AVC","pts_men":138.5,"pts_women":null,"avg":138.5,"gdp":36238,"hdi":0.937},{"rank":35,"country":"Mexico","confederation":"—","pts_men":null,"pts_women":138.4,"avg":138.4,"gdp":14185,"hdi":0.789},{"rank":36,"country":"Croatia","confederation":"CEV","pts_men":136.4,"pts_women":null,"avg":136.4,"gdp":24050,"hdi":0.889},{"rank":37,"country":"Slovak Republic","confederation":"—","pts_men":null,"pts_women":128.5,"avg":128.5,"gdp":25992,"hdi":0.88},{"rank":38,"country":"Hungary","confederation":"—","pts_men":null,"pts_women":127.5,"avg":127.5,"gdp":23292,"hdi":0.87}];
+
+const CONF_COLORS = {
+  CEV: {bg:'#e6eef8', color:'#0c447c'},
+  AVC: {bg:'#fff3e0', color:'#e65100'},
+  NORCECA: {bg:'#e8f5e9', color:'#1b5e20'},
+  CSV: {bg:'#f3e5f5', color:'#4a148c'},
+  CAVB: {bg:'#fce4ec', color:'#880e4f'},
+};
+
+let sortKey = 'avg';
+let sortDir = -1;
+
+function val(d, k) { return d[k] == null ? -Infinity : d[k]; }
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const cf = document.getElementById('confFilter').value;
+  let rows = DATA.filter(d =>
+    d.country.toLowerCase().includes(q) &&
+    (cf === '' || d.confederation === cf)
+  ).sort((a,b) => sortDir * (val(a,sortKey) - val(b,sortKey)));
+
+  const tbody = document.getElementById('rankBody');
+  tbody.innerHTML = rows.map((d, i) => {
+    const cc = CONF_COLORS[d.confederation] || {bg:'#f5f5f5', color:'#666'};
+    const badge = `<span class="conf-badge" style="background:${cc.bg};color:${cc.color}">${d.confederation}</span>`;
+    const men   = d.pts_men   != null ? d.pts_men.toFixed(1)   : '<span style="color:#bbb">—</span>';
+    const women = d.pts_women != null ? d.pts_women.toFixed(1) : '<span style="color:#bbb">—</span>';
+    const avg   = d.avg       != null ? d.avg.toFixed(1)       : '<span style="color:#bbb">—</span>';
+    const gdp   = d.gdp       != null ? '$' + d.gdp.toLocaleString() : '<span style="color:#bbb">—</span>';
+    const hdi   = d.hdi       != null ? d.hdi.toFixed(3)       : '<span style="color:#bbb">—</span>';
+    return `<tr>
+      <td style="color:var(--muted); font-size:12px; text-align:center;">${i+1}</td>
+      <td style="font-weight:500;">${d.country}</td>
+      <td style="text-align:center;">${badge}</td>
+      <td style="text-align:right;">${men}</td>
+      <td style="text-align:right;">${women}</td>
+      <td style="text-align:right; font-weight:500;">${avg}</td>
+      <td style="text-align:right;">${gdp}</td>
+      <td style="text-align:right;">${hdi}</td>
+    </tr>`;
+  }).join('');
+}
+
+function sortBy(key) {
+  if (sortKey === key) sortDir *= -1;
+  else { sortKey = key; sortDir = -1; }
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active-btn'));
+  document.getElementById('btn-' + key).classList.add('active-btn');
+  render();
+}
+
+document.getElementById('search').addEventListener('input', render);
+document.getElementById('confFilter').addEventListener('change', render);
+render();
+</script>
+
+<footer>
+  <p><strong>Nehir Eylül Balcı</strong> &nbsp;·&nbsp; 33936 &nbsp;·&nbsp; DSA210 Spring 2025–2026 &nbsp;·&nbsp; Sabancı University</p>
+  <p style="margin-top: 0.5rem;"><a href="https://github.com/eypulla/DSA210-TermProject">github.com/eypulla/DSA210-TermProject</a></p>
+</footer>
+
+</body>
+</html>
